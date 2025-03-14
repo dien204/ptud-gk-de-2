@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+</head>
+<body>
+    <h1>Danh sách Công Việc</h1>
+    <form action="{{ url_for('app_routes.add_task') }}" method="post">
+        <input type="text" name="task" placeholder="Nhập công việc mới" required>
+        <button type="submit">Thêm</button>
+    </form>
+    
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task }}</li>
+        {% endfor %}
+    </ul>
+    
+    <a href="{{ url_for('app_routes.admin') }}">Quản lý Admin</a>
+</body>
+</html>
