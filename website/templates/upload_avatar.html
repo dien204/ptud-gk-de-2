@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center my-4">Cập nhật ảnh đại diện</h2>
+
+<div class="text-center">
+    <img src="{{ url_for('static', filename=current_user.avatar) }}" class="rounded-circle" width="150" height="150" alt="Avatar">
+</div>
+
+<form method="POST" enctype="multipart/form-data" class="mt-3 w-50 mx-auto">
+    <div class="form-group">
+        <label for="avatar">Chọn ảnh:</label>
+        <input type="file" name="avatar" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary mt-3 w-100">Cập nhật</button>
+</form>
+{% endblock %}

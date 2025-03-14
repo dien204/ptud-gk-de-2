@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center my-4">Chỉnh sửa Công Việc</h2>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="title">Tiêu đề:</label>
+        <input type="text" name="title" class="form-control" value="{{ task.title }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Mô tả:</label>
+        <textarea name="description" class="form-control">{{ task.description }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Trạng thái:</label>
+        <select name="status" class="form-control">
+            <option value="Pending" {% if task.status == 'Pending' %} selected {% endif %}>Chờ xử lý</option>
+            <option value="In Progress" {% if task.status == 'In Progress' %} selected {% endif %}>Đang làm</option>
+            <option value="Completed" {% if task.status == 'Completed' %} selected {% endif %}>Hoàn thành</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+</form>
+{% endblock %}

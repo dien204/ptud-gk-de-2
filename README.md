@@ -1,71 +1,68 @@
-1. Thông tin cá nhân
+# Thông tin cá nhân sinh viên
 
- - Họ và tên: Nguyễn Thị Mỹ Duyên
+- **Nguyễn Thị Mỹ Duyên** 
+- **MSSV: 22640511**
+- **STT: 15**
 
- - MSSV: 22640511
+# Mô tả Dự án
 
- - Email: nguyenthimyduyen031200@gmail.com
+Dự án này xây dựng một hệ thống todo-list đơn giản, cho phép người dùng:
+- **Đăng ký & Đăng nhập:** Tạo tài khoản và đăng nhập để sử dụng hệ thống.
+- **Tạo & Quản lý task:** tạo task.
 
+# Hướng dẫn cài dặt và chạy chương trình 
 
-2. Mô tả Project
+### Tải hệ thống
 
-Ứng dụng "Quản lý Công việc" giúp người dùng theo dõi và quản lý danh sách công việc của họ. Hệ thống bao gồm hai tác nhân:
+Clone dự án từ Github:
+```bash
+git clone https://github.com/dien204/ptud-gk-de-2.git
+```
 
- - Admin: Quản lý danh sách công việc, tình trạng hoàn thành, và xóa công việc.
+Vào thư mục hệ thống:
+```bash
+cd ptud-gk-de-2
+```
 
- - User: Thêm, chỉnh sửa, và theo dõi tình trạng công việc.
+### Cài đặt mô trường ảo
 
-Mỗi công việc sẽ bao gồm:
+Trước tiên, đảm bảo bạn đã cài đặt Python (phiên bản ≥ 3.10).
 
- - Task: Tên công việc
+Tạo môi trường ảo:
+```bash
+python -m venv venv
+```
 
- - Status: Trạng thái hoàn thành (Pending/Done)
+Kích hoạt môi trường ảo:
+- Windows: 
+    ```bash
+    venv\Scripts\activate
+    ```
 
- - Created: Ngày tạo công việc
+- Ubuntu/Linux:
+    ```bash
+    source venv/bin/activate
+    ```
 
- - Finished: Ngày hoàn thành
+### Cài đặt thư viện
 
-3. Hướng dẫn cài đặt
+Cập nhật phiên bản mới nhất của pip trong môi trường ảo:
+```bash
+python -m pip install --upgrade pip
+```
 
- - Clone repository
+Sau đó, cài đặt các thư viện cần thiết từ `requirements.txt`:
+```bash
+pip install -r requirements.txt
+```
 
-$ git clone https://github.com/[your-github-username]/ptud-gk-de-2.git
-$ cd ptud-gk-de-2
+### Chạy chương trình
 
- - Cài đặt môi trường
+Khởi chạy chương trình:
+```bash
+python main.py
+```
 
-Tạo môi trường ảo và cài đặt các package cần thiết:
+# Link project đã triển khai
 
-$ python -m venv venv
-
-$ source venv/bin/activate  # Trên macOS/Linux
-
-$ venv\Scripts\activate    # Trên Windows
-
-$ pip install -r requirements.txt
-
- - Cấu hình cơ sở dữ liệu
-
-Tạo file .env và thiết lập các biến môi trường:
-
-FLASK_APP=app.py
-
-FLASK_ENV=development
-
-DATABASE_URL=sqlite:///tasks.db
-
-Khởi tạo cơ sở dữ liệu:
-
-$ flask db init
-
-$ flask db migrate -m "Initial migration."
-
-$ flask db upgrade
-
-Chạy ứng dụng
-
-$ flask run
-
-
-4. Mở trình duyệt và truy cập: http://127.0.0.1:5000
-
+- [http://127.0.0.1:5000](http://127.0.0.1:5000)

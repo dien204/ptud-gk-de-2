@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center my-4">Quản lý Công Việc</h2>
+
+<!-- Bộ lọc theo trạng thái -->
+<form method="GET" class="text-center mb-4">
+    <select name="status" onchange="this.form.submit()" class="form-select w-50 mx-auto">
+        <option value="All" {% if filter_status == 'All' %} selected {% endif %}>Tất cả</option>
+        <option value="Pending" {% if filter_status == 'Pending' %} selected {% endif %}>Chờ xử lý</option>
+        <option value="In Progress" {% if filter_status == 'In Progress' %} selected {% endif %}>Đang làm</option>
+        <option value="Completed" {% if filter_status == 'Completed' %} selected {% endif %}>Hoàn thành</option>
+    </select>
+</form>
+
+<!-- Hiển thị Task -->
+<div class="row">
+    {% for task in tasks %}
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ task.title }}</h5>
+                <p class="card-text text-muted">{{ task.description }}</p>
+                <p><strong>Trạng thái:</strong> 
+                    <span class="badge {% if task.status == 'Pending' %}bg-warning{% elif task.status == 'In Progress' %}bg-info{% else %}bg-success{% endif %}">
+                        {{ task.status }}
+                    </span>
+                </p>
+                <p class="text-muted"><small>Ngày tạo: {{ task.created_at.strftime('%Y-%m-%d') }}</small></p>
+                
+                <a href="{{ url_for('views.edit_task', task_id=task.id) }}" class="btn btn-sm btn-primary">Sửa</a>
+                <form method="POST" action="{{ url_for('views.delete_task', task_id=task.id) }}" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{{ url_for('views.create_task') }}" class="btn btn-success mt-4">+ Thêm Task</a>
+{% endblock %}
