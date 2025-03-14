@@ -37,8 +37,11 @@
                             <a class="nav-link" href="{{ url_for('views.create_task') }}">+ Thêm Task</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('views.upload_avatar') }}">Đổi avatar </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link">
-                                <img src="{{ url_for('static', filename=current_user.avatar) }}" class="avatar-img" alt="Avatar">
+                                <img src="{{current_user.avatar.split('website/')[-1]}} class="avatar-img rounded-circle shadow-sm" alt="Avatar">
                                 {{ current_user.username }}
                             </a>
                         </li>

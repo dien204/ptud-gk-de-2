@@ -4,14 +4,30 @@
 <h2 class="text-center my-4">Cập nhật ảnh đại diện</h2>
 
 <div class="text-center">
-    <img src="{{ url_for('static', filename=current_user.avatar) }}" class="rounded-circle" width="150" height="150" alt="Avatar">
+    <img id="preview" src="{{current_user.avatar.split('website/')[-1]}}" 
+         class="rounded-circle shadow-sm" width="150" height="150" alt="Avatar">
 </div>
 
 <form method="POST" enctype="multipart/form-data" class="mt-3 w-50 mx-auto">
     <div class="form-group">
         <label for="avatar">Chọn ảnh:</label>
-        <input type="file" name="avatar" class="form-control">
+        <input type="file" name="avatar" class="form-control" id="avatarInput" accept="image/*">
     </div>
     <button type="submit" class="btn btn-primary mt-3 w-100">Cập nhật</button>
 </form>
+
+<!-- Xem trước ảnh đã chọn -->
+<script>
+    document.getElementById('avatarInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
 {% endblock %}

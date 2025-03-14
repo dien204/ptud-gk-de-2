@@ -71,15 +71,17 @@ def delete_task(task_id):
     flash('Task deleted successfully!', 'success')
     return redirect(url_for('views.home'))
 
-UPLOAD_FOLDER = 'static\\uploads'
+UPLOAD_FOLDER = 'website/static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
+    """Kiểm tra định dạng file hợp lệ"""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @views.route('/upload_avatar', methods=['GET', 'POST'])
 @login_required
 def upload_avatar():
+    """Cho phép người dùng tải lên ảnh đại diện của họ"""
     if request.method == 'POST':
         if 'avatar' not in request.files:
             flash("Không tìm thấy file!", "danger")
@@ -92,14 +94,24 @@ def upload_avatar():
             return redirect(request.url)
 
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = secure_filename(f"{current_user.id}_{file.filename}")  # Tránh trùng tên file
             file_path = os.path.join(UPLOAD_FOLDER, filename)
 
+            # Xóa avatar cũ nếu không phải ảnh mặc định
+            if current_user.avatar != 'website/static/uploads/default_avatar.png':
+                try:
+                    os.remove(os.path.join(os.getcwd(), current_user.avatar))
+                except:
+                    pass  # Nếu file không tồn tại, bỏ qua
+
+            # Lưu ảnh mới vào thư mục static/uploads
             file.save(os.path.join(os.getcwd(), file_path))
 
-            # current_user.set_avatar(file_path)
+            # Cập nhật avatar trong database
+            current_user.avatar = file_path
+            db.session.commit()
 
             flash("Cập nhật avatar thành công!", "success")
-            return redirect(url_for('auth.upload_avatar'))
+            return redirect(url_for('views.upload_avatar'))
 
     return render_template('upload_avatar.html')
